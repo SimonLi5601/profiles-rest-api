@@ -1,2 +1,4 @@
 django==2.2
+wheel
 djangorestframework==3.9.2
+
