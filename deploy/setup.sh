@@ -9,7 +9,7 @@ PROJECT_BASE_PATH='/usr/local/apps/profiles-rest-api'
 
 echo "Installing dependencies..."
 #yum update -y
-yum install -y python3-dev python3-venv sqlite python-pip supervisor nginx git gcc epel-release clang
+yum install -y python3-devel python3-venv sqlite python-pip supervisor nginx git gcc epel-release clang
 
 # Create project directory
 mkdir -p $PROJECT_BASE_PATH
@@ -18,6 +18,8 @@ git clone $PROJECT_GIT_URL $PROJECT_BASE_PATH
 # Create virtual environment
 mkdir -p $PROJECT_BASE_PATH/env
 python3 -m venv $PROJECT_BASE_PATH/env
+
+source $PROJECT_BASE_PATH/env/bin/activate
 
 # Install python packages
 $PROJECT_BASE_PATH/env/bin/pip install -r $PROJECT_BASE_PATH/requirements.txt
