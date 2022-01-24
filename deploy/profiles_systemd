@@ -1,0 +1,16 @@
+[Unit]
+Description=profiles_api
+After=network.target
+
+[Service]
+PIDFile=/run/profiles_api/pid
+User=root
+Group=root
+WorkingDirectory=/usr/local/apps/profiles-rest-api/
+ExecStart=/usr/local/apps/profiles-rest-api/env/bin/uwsgi --http :9000 --wsgi-file /usr/local/apps/profiles-rest-api/profiles_project/wsgi.py
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s TERM $MAINPID
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

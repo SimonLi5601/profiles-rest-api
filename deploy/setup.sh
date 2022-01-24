@@ -8,8 +8,8 @@ PROJECT_GIT_URL='https://github.com/LondonAppDev/profiles-rest-api.git'
 PROJECT_BASE_PATH='/usr/local/apps/profiles-rest-api'
 
 echo "Installing dependencies..."
-apt-get update
-apt-get install -y python3-dev python3-venv sqlite python-pip supervisor nginx git
+yum update
+yum install -y python3-dev python3-venv sqlite python-pip supervisor nginx git
 
 # Create project directory
 mkdir -p $PROJECT_BASE_PATH
@@ -29,15 +29,13 @@ $PROJECT_BASE_PATH/env/bin/python manage.py migrate
 $PROJECT_BASE_PATH/env/bin/python manage.py collectstatic --noinput
 
 # Configure supervisor
-cp $PROJECT_BASE_PATH/deploy/supervisor_profiles_api.conf /etc/supervisor/conf.d/profiles_api.conf
-supervisorctl reread
-supervisorctl update
-supervisorctl restart profiles_api
+cp $PROJECT_BASE_PATH/deploy/profiles_systemd /etc/systemd/system/profiles_systemd
+systemctl reload daemon
+systemctl restart profiles_api
 
 # Configure nginx
-cp $PROJECT_BASE_PATH/deploy/nginx_profiles_api.conf /etc/nginx/sites-available/profiles_api.conf
-rm /etc/nginx/sites-enabled/default
-ln -s /etc/nginx/sites-available/profiles_api.conf /etc/nginx/sites-enabled/profiles_api.conf
+cp $PROJECT_BASE_PATH/deploy/nginx_profiles_api.conf /etc/nginx/conf.d/profiles_api.conf
+rm /etc/nginx/conf.d/default
 systemctl restart nginx.service
 
 echo "DONE! :)"
