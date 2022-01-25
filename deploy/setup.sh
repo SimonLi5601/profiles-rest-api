@@ -31,7 +31,7 @@ $PROJECT_BASE_PATH/env/bin/python manage.py migrate
 $PROJECT_BASE_PATH/env/bin/python manage.py collectstatic --noinput
 
 # Configure supervisor
-cp $PROJECT_BASE_PATH/deploy/profiles_systemd /etc/systemd/system/profiles_systemd
+cp $PROJECT_BASE_PATH/deploy/profiles_systemd /etc/systemd/system/profiles_api
 systemctl daemon-reload
 systemctl restart profiles_api
 
