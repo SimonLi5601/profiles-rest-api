@@ -5,7 +5,7 @@ set -e
 # TODO: Set to URL of git repo.
 PROJECT_GIT_URL='https://github.com/SimonLi5601/profiles-rest-api.git'
 
-PROJECT_BASE_PATH='/usr/local/apps/profiles-rest-api'
+PROJECT_BASE_PATH='cdprofiles-rest-api'
 
 echo "Installing dependencies..."
 #yum update -y
@@ -31,9 +31,10 @@ $PROJECT_BASE_PATH/env/bin/python manage.py migrate
 $PROJECT_BASE_PATH/env/bin/python manage.py collectstatic --noinput
 
 # Configure supervisor
-cp $PROJECT_BASE_PATH/deploy/profiles_systemd /etc/systemd/system/profiles_api
+cp $PROJECT_BASE_PATH/deploy/profiles_systemd /usr/lib/systemd/system/profiles-api.service
 systemctl daemon-reload
-systemctl restart profiles_api
+systemctl enable profiles-api
+systemctl restart profiles-api
 
 # Configure nginx
 cp $PROJECT_BASE_PATH/deploy/nginx_profiles_api.conf /etc/nginx/conf.d/profiles_api.conf
