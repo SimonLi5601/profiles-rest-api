@@ -32,7 +32,7 @@ $PROJECT_BASE_PATH/env/bin/python manage.py collectstatic --noinput
 
 # Configure supervisor
 cp $PROJECT_BASE_PATH/deploy/profiles_systemd /etc/systemd/system/profiles_systemd
-systemctl systemctl daemon-reload
+systemctl daemon-reload
 systemctl restart profiles_api
 
 # Configure nginx
